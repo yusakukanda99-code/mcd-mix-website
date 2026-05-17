@@ -130,7 +130,7 @@ button {
   height: 100%;
   max-width: 100%;
   padding: 0 var(--container-pad-x);
-  padding-left: calc(var(--logo-offset-x) + var(--logo-size) + 1.5rem);  /* ロゴ分の左余白を確保 */
+  padding-left: calc(var(--logo-offset-x) + var(--logo-size) + 3rem);  /* ロゴと項目の間を広く（1.5→3rem） */
   display: flex;
   align-items: center;
   gap: 2rem;
@@ -252,11 +252,11 @@ button {
 .hero__year {
   position: absolute;
   top: auto;
-  bottom: 2rem;               /* 日付（10.3/4）の上端と縦位置を揃える */
+  bottom: 3rem;               /* date-content の下端と揃える（padding-bottom と一致） */
   left: 0.5rem;
   writing-mode: vertical-rl;
   font-family: var(--font-display);
-  font-size: 3rem;
+  font-size: 3.2rem;          /* date-content の総高さに合わせる（3.0→3.2rem） */
   line-height: 1;
   letter-spacing: 0.05em;
   color: var(--color-ink);
@@ -315,7 +315,7 @@ button {
   font-size: 0.95rem;
   font-weight: 700;
   align-self: stretch;            /* 親（date-content）の幅にあわせる＝日付の幅と同じ */
-  justify-content: space-between; /* ラベルと締切日を両端に */
+  justify-content: center;        /* 中身を中央寄せ（space-between→center） */
   transition: background 0.2s ease;
 }
 
@@ -336,6 +336,8 @@ button {
   position: relative;
   z-index: var(--z-panel);
   align-self: center;             /* 縦中央 */
+  justify-self: end;              /* 横は右端寄せ */
+  max-width: 32rem;               /* 幅を制限 */
   transform: translateY(3rem);    /* 中央からさらに下にずらす */
   margin: 0;
   background-color: var(--color-cream-paper);
@@ -351,15 +353,15 @@ button {
 }
 
 .hero__panel-inner {
-  padding: 5rem 1.5rem 2rem 3rem;   /* 右パディングを3rem→1.5remに詰める */
+  padding: 4rem 1.5rem 2rem 3rem;   /* 上を5rem→4remに詰めて、文字を罫線に被らない位置へ */
 }
 
 /* 「ながくて」 */
 .hero__panel-sub {
-  font-size: 1.75rem;
+  font-size: 2rem;                /* 1.75→2rem */
   font-weight: 500;
-  line-height: var(--rule-gap);   /* 罫線にあわせる */
-  margin: 0 0 1rem 0;             /* 下に1remの空き */
+  line-height: var(--rule-gap);
+  margin: 0 0 1.5rem 0;           /* 下の余白を1rem→1.5remに */
 }
 
 /* 「Art Book」「Lab.」 — 縦並び、Lab.は右寄せ */
@@ -368,8 +370,8 @@ button {
   font-size: 5rem;
   line-height: var(--rule-gap);   /* 罫線にあわせる */
   font-weight: 900;
-  letter-spacing: -0.02em;
-  margin: 0.5rem 0 3rem;          /* 下を空ける（旧2rem→3rem） */
+  letter-spacing: 0.02em;         /* 詰め過ぎ解消（-0.02→+0.02em） */
+  margin: 0.5rem 0 3rem;
   display: flex;
   flex-direction: column;
   width: max-content;             /* 「Art Book」の幅にぴったり合わせる */
