@@ -328,6 +328,12 @@ button { border: none; background: none; font: inherit; cursor: pointer; }
   box-shadow: 0 2px 24px rgba(0, 0, 0, 0.06);
 }
 
+/* 画面左に密着させるセクション */
+.section--full-left .section__inner {
+  margin-left: 0;
+  margin-right: auto;
+}
+
 .section__head {
   margin-bottom: 2rem;
   padding-bottom: 1.25rem;
@@ -425,6 +431,12 @@ button { border: none; background: none; font: inherit; cursor: pointer; }
    02: キュレーター
    ============================================================= */
 .curator {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.curator__profile {
   display: grid;
   grid-template-columns: 14rem 1fr;
   gap: 2.5rem;
@@ -441,11 +453,6 @@ button { border: none; background: none; font: inherit; cursor: pointer; }
   object-fit: cover; display: block;
 }
 
-.curator__body {
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
-}
 
 .curator__message {
   font-size: 0.95rem;
@@ -861,7 +868,7 @@ button { border: none; background: none; font: inherit; cursor: pointer; }
   .info-list__highlight { font-size: 1.25rem; }
 
   /* キュレーター */
-  .curator { grid-template-columns: 1fr; gap: 1.5rem; }
+  .curator__profile { grid-template-columns: 1fr; gap: 1.5rem; }
   .curator__photo { max-width: 14rem; margin: 0 auto; }
   .curator__career-row { grid-template-columns: 4rem 1fr; }
 
