@@ -1,0 +1,440 @@
+/* =============================================================
+   MCD MIX - style.css
+   TOP セクション（ヘッダー + ヒーロー）
+   ============================================================= */
+
+
+/* -------------------------------------------------------------
+   1. CSS変数の定義
+   色・余白・サイズなどはここで一括管理。
+   1ヶ所変更すれば全体に反映されます。
+   ------------------------------------------------------------- */
+:root {
+
+  /* ----- カラー ----- */
+  --color-cream:        #f0e4ca;            /* 紙の基本色（ヘッダー背景など） */
+  --color-cream-paper:  #f5ecd1;            /* ノートパネル用、わずかに明るい */
+  --color-ink:          #1a1a1a;            /* 主要テキスト */
+  --color-ink-soft:     #2c2c2c;            /* 副次テキスト */
+  --color-cta-bg:       #0a0a0a;            /* 黒ボックスCTAの背景 */
+  --color-cta-text:     #ffffff;            /* 黒ボックスCTAの文字色 */
+  --color-rule:         rgba(0,0,0,0.25);   /* ノート罫線の色 */
+  --color-divider:      rgba(0,0,0,0.15);   /* ヘッダー下の罫線など */
+
+  /* ----- タイポグラフィ ----- */
+  --font-jp:        'Noto Sans JP', 'Hiragino Sans', 'ヒラギノ角ゴシック', sans-serif;
+  --font-display:   'Archivo Black', 'Noto Sans JP', sans-serif;
+
+  /* ----- レイアウト ----- */
+  --header-height:    4rem;     /* ヘッダーの高さ：64px */
+  --logo-size:        5.8rem;   /* ロゴ直径：約93px（header×1.45で約30%下に飛び出す） */
+  --logo-offset-x:    1.5rem;   /* ロゴの左端からの距離 */
+  --container-pad-x:  2rem;     /* 横方向の基本パディング */
+
+  /* ----- ノート罫線（hero panelで使用） ----- */
+  --rule-gap:         2rem;     /* 罫線の間隔：32px */
+  --rule-thickness:   1px;      /* 罫線の太さ */
+
+  /* ----- z-index レイヤー管理 ----- */
+  --z-bg:       0;     /* 背景イラスト */
+  --z-content:  10;    /* 通常コンテンツ */
+  --z-panel:    20;    /* ノートパネル */
+  --z-header:   100;   /* ヘッダー */
+  --z-logo:     110;   /* ロゴ（ヘッダーより手前） */
+}
+
+
+/* -------------------------------------------------------------
+   2. リセット & ベース
+   ------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-jp);
+  font-weight: 400;
+  color: var(--color-ink);
+  background: var(--color-cream);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;     /* 横スクロール禁止 */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  border: none;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+
+/* -------------------------------------------------------------
+   3. 背景レイヤー（イラストを画面全体に固定表示）
+   ページ全体を通じて背景として常に存在する。
+   将来、スクロール連動で切り替える場合はここを更新。
+   ------------------------------------------------------------- */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-bg);
+  pointer-events: none;     /* クリックを通過させる */
+}
+
+.bg-layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+
+/* -------------------------------------------------------------
+   4. ヘッダー（sticky / ロゴはnavから飛び出す）
+   ------------------------------------------------------------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  height: var(--header-height);
+  background: var(--color-cream);
+  border-bottom: 1px solid var(--color-divider);
+  overflow: visible;        /* ロゴがheader下に飛び出すために必須 */
+}
+
+.header__inner {
+  position: relative;
+  height: 100%;
+  max-width: 100%;
+  padding: 0 var(--container-pad-x);
+  padding-left: calc(var(--logo-offset-x) + var(--logo-size) + 1.5rem);  /* ロゴ分の左余白を確保 */
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* ロゴ：絶対配置でナビから下に飛び出す */
+.header__logo {
+  position: absolute;
+  top: 0.3rem;
+  left: var(--logo-offset-x);
+  width: var(--logo-size);
+  height: var(--logo-size);
+  z-index: var(--z-logo);
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.header__logo:hover {
+  transform: rotate(-3deg) scale(1.02);   /* ホバー時にわずかに傾く（ZINE的な遊び） */
+}
+
+.header__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ナビゲーション */
+.header__nav {
+  flex: 1;
+}
+
+.header__nav-list {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.header__nav-list a {
+  position: relative;
+  padding: 0.5rem 0;
+  transition: opacity 0.2s ease;
+}
+
+.header__nav-list a:hover {
+  opacity: 0.6;
+}
+
+/* 出展申込CTA（黒ボックス） */
+.header__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1.1rem;
+  background: var(--color-cta-bg);
+  color: var(--color-cta-text);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: background 0.2s ease;
+}
+
+.header__cta:hover {
+  background: #2a2a2a;
+}
+
+/* スクロール時のヘッダー：JSで .is-scrolled クラスが付与される */
+.header.is-scrolled {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+
+/* -------------------------------------------------------------
+   5. ヒーロー
+   左：日時・会場・出展者募集CTA
+   右：ノートブック風パネル（タイトル + 説明）
+   ------------------------------------------------------------- */
+.hero {
+  position: relative;
+  z-index: var(--z-content);
+  min-height: calc(100vh - var(--header-height));
+  padding: 3rem 0 4rem;
+}
+
+.hero__inner {
+  position: relative;
+  max-width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 2rem;
+  padding: 0 var(--container-pad-x);
+}
+
+/* ----- ヒーロー左：日時ブロック ----- */
+.hero__date-block {
+  position: relative;
+  padding-left: 3.5rem;       /* 縦書き2026の幅を確保 */
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* 縦書き「2026」 */
+.hero__year {
+  position: absolute;
+  top: 2rem;
+  left: 0.5rem;
+  writing-mode: vertical-rl;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  color: var(--color-ink);
+}
+
+.hero__date-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* 開催日（10.3 / 4） */
+.hero__date-main {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  line-height: 1;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.hero__date-day {
+  display: inline-block;
+}
+
+.hero__date-suffix {
+  font-family: var(--font-display);
+  font-size: 0.45em;
+  margin-left: 0.1em;
+}
+
+.hero__date-sep {
+  margin: 0 0.2em;
+}
+
+/* 会場 */
+.hero__venue {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+/* 出展者募集中バナー（黒ボックス） */
+.hero__recruit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  padding: 0.7rem 1.2rem;
+  background: var(--color-cta-bg);
+  color: var(--color-cta-text);
+  font-size: 0.95rem;
+  font-weight: 700;
+  align-self: flex-start;   /* 横幅を内容に合わせる */
+  transition: background 0.2s ease;
+}
+
+.hero__recruit:hover {
+  background: #2a2a2a;
+}
+
+.hero__recruit-label {
+  font-weight: 700;
+}
+
+.hero__recruit-deadline {
+  font-weight: 700;
+}
+
+/* ----- ヒーロー右：ノートブック風パネル ----- */
+.hero__panel {
+  position: relative;
+  z-index: var(--z-panel);
+  margin: 2rem 0 4rem;
+  background-color: var(--color-cream-paper);
+  /* 罫線の重ね：背景色の上に水平罫線を描画 */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent calc(var(--rule-gap) - var(--rule-thickness)),
+    var(--color-rule) calc(var(--rule-gap) - var(--rule-thickness)),
+    var(--color-rule) var(--rule-gap)
+  );
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+}
+
+.hero__panel-inner {
+  padding: 3rem 3rem 4rem;
+}
+
+/* 「ながくて」 */
+.hero__panel-sub {
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: var(--rule-gap);   /* 罫線にあわせる */
+  margin: 0;
+}
+
+/* 「Art Book Lab.」 */
+.hero__panel-title {
+  font-family: var(--font-display);
+  font-size: 5rem;
+  line-height: var(--rule-gap);   /* 罫線にあわせる：2倍の高さで2行分 */
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin: 0.5rem 0 2rem;
+}
+
+/* 説明文 */
+.hero__panel-desc {
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: var(--rule-gap);   /* 罫線にあわせる */
+  max-width: 28em;
+  margin: 1.5rem 0 0;
+}
+
+
+/* -------------------------------------------------------------
+   6. レスポンシブ（モバイル対応）
+   ※ モバイルの細かい挙動は今後デザインを見ながら調整
+   ------------------------------------------------------------- */
+
+/* タブレット以下：1080px以下 */
+@media (max-width: 1080px) {
+  :root {
+    --header-height: 3.5rem;
+    --logo-size: 4.5rem;
+  }
+
+  .hero__panel-title {
+    font-size: 4rem;
+  }
+
+  .hero__date-main {
+    font-size: 3rem;
+  }
+}
+
+/* モバイル：768px以下、縦積みレイアウトに切り替え */
+@media (max-width: 768px) {
+  :root {
+    --container-pad-x: 1rem;
+    --header-height: 3.5rem;
+    --logo-size: 4rem;
+    --rule-gap: 1.5rem;
+  }
+
+  /* ヘッダー：モバイルではナビを隠してロゴとCTAのみ表示 */
+  .header__nav {
+    display: none;     /* 仮設定。将来、ハンバーガーメニューに置き換え */
+  }
+
+  .header__inner {
+    padding-left: calc(var(--logo-offset-x) + var(--logo-size) + 1rem);
+    justify-content: flex-end;
+  }
+
+  .header__cta {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.8rem;
+  }
+
+  /* ヒーロー：縦積み */
+  .hero__inner {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .hero__date-block {
+    padding-left: 2.5rem;
+    padding-top: 1.5rem;
+  }
+
+  .hero__year {
+    font-size: 2rem;
+  }
+
+  .hero__date-main {
+    font-size: 2.5rem;
+  }
+
+  .hero__panel-inner {
+    padding: 2rem 1.5rem 2.5rem;
+  }
+
+  .hero__panel-title {
+    font-size: 3rem;
+  }
+}
