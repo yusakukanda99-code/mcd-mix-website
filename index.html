@@ -11,7 +11,7 @@
   <meta property="og:description" content="2026年10月、愛・地球博記念公園で開催される自主制作本のアートブックイベント。">
   <meta property="og:type" content="website">
 
-  <!-- Google Fonts: Noto Sans JP（日本語本文用） + Archivo Black（英文タイトル用） -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -25,16 +25,16 @@
     <img src="images/bc-1.jpg" alt="">
   </div>
 
-  <!-- ヘッダー（スクロール時もstickyで画面上部に固定） -->
+  <!-- ============================================
+       HEADER（sticky）
+       ============================================ -->
   <header class="header" role="banner">
     <div class="header__inner">
 
-      <!-- ロゴ：navから3割程度下に飛び出す配置 -->
       <a href="/" class="header__logo" aria-label="mcd mix ホーム">
         <img src="images/logo.png" alt="mcd mix">
       </a>
 
-      <!-- メインナビゲーション -->
       <nav class="header__nav" aria-label="メインナビゲーション">
         <ul class="header__nav-list">
           <li><a href="#overview">イベント概要</a></li>
@@ -45,46 +45,37 @@
         </ul>
       </nav>
 
-      <!-- 出展申込CTA（黒ボックス） -->
       <a href="#exhibitors" class="header__cta">出展のお申し込みはこちら</a>
 
     </div>
   </header>
 
   <!-- ============================================
-       HERO セクション（メインビジュアル）
+       HERO（メインビジュアル）
        ============================================ -->
   <section class="hero" aria-label="メインビジュアル">
     <div class="hero__inner">
 
-      <!-- 左側：日時・会場情報・出展者募集CTA -->
       <div class="hero__date-block">
-
-        <!-- 縦書きの年 -->
         <span class="hero__year" aria-hidden="true">2026</span>
 
         <div class="hero__date-content">
-          <!-- 開催日 -->
           <p class="hero__date-main">
             <span class="hero__date-day">10.3</span><span class="hero__date-suffix">(sat)</span>
             <span class="hero__date-sep"> / </span>
             <span class="hero__date-day">4</span><span class="hero__date-suffix">(sun)</span>
           </p>
 
-          <!-- 会場 -->
           <p class="hero__venue">愛・地球博記念公園 モリコロパーク</p>
           <p class="hero__venue">地域交流センター 体験学習室3</p>
 
-          <!-- 出展者募集中バナー -->
           <a href="#exhibitors" class="hero__recruit">
             <span class="hero__recruit-label">【出展者募集中】</span>
             <span class="hero__recruit-deadline">OO月OO日まで</span>
           </a>
         </div>
-
       </div>
 
-      <!-- 右側：ノートブック風パネル -->
       <div class="hero__panel">
         <div class="hero__panel-inner">
           <p class="hero__panel-sub">ながくて</p>
@@ -123,7 +114,7 @@
         </div>
         <div class="info-list__row">
           <dt class="info-list__term">時間</dt>
-          <dd class="info-list__desc">OO:OO - OO:OO（予定）<!-- TODO: 確定後更新 --></dd>
+          <dd class="info-list__desc">OO:OO - OO:OO（予定）<!-- TODO --></dd>
         </div>
         <div class="info-list__row">
           <dt class="info-list__term">会場</dt>
@@ -139,17 +130,400 @@
         </div>
         <div class="info-list__row">
           <dt class="info-list__term">主催</dt>
-          <dd class="info-list__desc">MCD MIX 実行委員会<!-- TODO: 正式名称確定 --></dd>
+          <dd class="info-list__desc">MCD MIX 実行委員会<!-- TODO --></dd>
         </div>
       </dl>
     </div>
   </section>
 
-  <!-- ヒーロー以下のセクションは次のステップで追加予定 -->
-  <!-- <section id="past-events">...</section>  → 過去のイベント -->
-  <!-- <section id="exhibitors">...</section>  → 出展者向け -->
-  <!-- <section id="visitors">...</section>  → 来場者向け -->
-  <!-- <section id="faq">...</section>  → FAQ -->
+  <!-- ============================================
+       SECTION 02: About MCD MIX
+       ============================================ -->
+  <section id="about" class="section section--about" aria-label="MCD MIXについて">
+    <div class="section__inner">
+      <header class="section__head">
+        <span class="section__num">02</span>
+        <h2 class="section__title">
+          <span class="section__title-jp">MCD MIXについて</span>
+          <span class="section__title-en">About</span>
+        </h2>
+      </header>
+
+      <div class="about">
+        <p class="about__lead">アーティストブックやZINE、写真集、絵本、漫画、文芸誌——<br>ジャンルを横断する自主制作本の作り手と読み手が出会う、二日間。</p>
+
+        <div class="about__body">
+          <p>「ながくて Art Book Lab.（MCD MIX）」は、本という小さなメディアの中にひとりひとりの手仕事と思考が織り込まれた表現を、つくる人・買う人・読む人がフラットに交流できる場として開催されます。<!-- TODO: 文章は櫃田さんと相談しながら確定 --></p>
+
+          <p>長久手という土地で、新しい本との出会いを。手に取って、めくって、作家と話す——そんな一冊との出会い方を、私たちは大切にしています。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 03: 出展可能作品
+       ============================================ -->
+  <section id="target-content" class="section section--target" aria-label="出展可能作品">
+    <div class="section__inner">
+      <header class="section__head">
+        <span class="section__num">03</span>
+        <h2 class="section__title">
+          <span class="section__title-jp">出展可能作品</span>
+          <span class="section__title-en">Target Content</span>
+        </h2>
+      </header>
+
+      <p class="section__lead">ジャンルや部数は問いません。自主制作の本であれば、どなたでもご応募いただけます。</p>
+
+      <ul class="target-grid">
+        <li class="target-grid__item">
+          <span class="target-grid__num">01</span>
+          <h3 class="target-grid__title">アーティストブック</h3>
+          <p class="target-grid__desc">作家の表現を本という形に封じ込めた作品集。</p>
+        </li>
+        <li class="target-grid__item">
+          <span class="target-grid__num">02</span>
+          <h3 class="target-grid__title">ZINE</h3>
+          <p class="target-grid__desc">少部数の自主制作冊子。手作業のあたたかさと自由な編集。</p>
+        </li>
+        <li class="target-grid__item">
+          <span class="target-grid__num">03</span>
+          <h3 class="target-grid__title">写真集</h3>
+          <p class="target-grid__desc">作家が紡ぐ視点を、印刷物として手に取れる形に。</p>
+        </li>
+        <li class="target-grid__item">
+          <span class="target-grid__num">04</span>
+          <h3 class="target-grid__title">絵本</h3>
+          <p class="target-grid__desc">大人も子どもも楽しめる、絵と言葉のものがたり。</p>
+        </li>
+        <li class="target-grid__item">
+          <span class="target-grid__num">05</span>
+          <h3 class="target-grid__title">漫画</h3>
+          <p class="target-grid__desc">独立系・同人・実験的な作品まで、漫画というメディアの可能性。</p>
+        </li>
+        <li class="target-grid__item">
+          <span class="target-grid__num">06</span>
+          <h3 class="target-grid__title">文芸誌</h3>
+          <p class="target-grid__desc">小説・詩・批評・エッセイ——言葉が主役の冊子。</p>
+        </li>
+        <li class="target-grid__item target-grid__item--etc">
+          <span class="target-grid__num">07</span>
+          <h3 class="target-grid__title">その他</h3>
+          <p class="target-grid__desc">上記に当てはまらないジャンルもご相談ください。</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 04: スケジュール
+       ============================================ -->
+  <section id="schedule" class="section section--schedule" aria-label="当日のスケジュール">
+    <div class="section__inner">
+      <header class="section__head">
+        <span class="section__num">04</span>
+        <h2 class="section__title">
+          <span class="section__title-jp">スケジュール</span>
+          <span class="section__title-en">Schedule</span>
+        </h2>
+      </header>
+
+      <p class="section__lead">当日のタイムテーブルです。<!-- TODO: 確定後更新 --></p>
+
+      <div class="schedule">
+        <article class="schedule__day">
+          <header class="schedule__day-head">
+            <span class="schedule__day-num">DAY 1</span>
+            <p class="schedule__day-date">10.3<span class="schedule__day-suffix">(sat)</span></p>
+          </header>
+          <ol class="schedule__list">
+            <li class="schedule__item">
+              <time class="schedule__time">OO:OO</time>
+              <span class="schedule__event">オープン<!-- TODO --></span>
+            </li>
+            <li class="schedule__item">
+              <time class="schedule__time">OO:OO</time>
+              <span class="schedule__event">トークセッション（仮）</span>
+            </li>
+            <li class="schedule__item">
+              <time class="schedule__time">OO:OO</time>
+              <span class="schedule__event">クローズ</span>
+            </li>
+          </ol>
+        </article>
+
+        <article class="schedule__day">
+          <header class="schedule__day-head">
+            <span class="schedule__day-num">DAY 2</span>
+            <p class="schedule__day-date">10.4<span class="schedule__day-suffix">(sun)</span></p>
+          </header>
+          <ol class="schedule__list">
+            <li class="schedule__item">
+              <time class="schedule__time">OO:OO</time>
+              <span class="schedule__event">オープン</span>
+            </li>
+            <li class="schedule__item">
+              <time class="schedule__time">OO:OO</time>
+              <span class="schedule__event">ワークショップ（仮）</span>
+            </li>
+            <li class="schedule__item">
+              <time class="schedule__time">OO:OO</time>
+              <span class="schedule__event">クローズ</span>
+            </li>
+          </ol>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 05: 過去のイベント
+       ============================================ -->
+  <section id="past-events" class="section section--archive" aria-label="過去のイベント">
+    <div class="section__inner">
+      <header class="section__head">
+        <span class="section__num">05</span>
+        <h2 class="section__title">
+          <span class="section__title-jp">過去のイベント</span>
+          <span class="section__title-en">Log / Archive</span>
+        </h2>
+      </header>
+
+      <p class="section__lead">これまで開催してきたイベントの記録です。<!-- TODO: 櫃田さんと詳細相談 --></p>
+
+      <ul class="archive-list">
+        <li class="archive-list__item">
+          <time class="archive-list__date">2025</time>
+          <div class="archive-list__body">
+            <h3 class="archive-list__title">前回イベント名（仮）</h3>
+            <p class="archive-list__meta">会場 / 参加作家数 など<!-- TODO --></p>
+          </div>
+          <a href="#" class="archive-list__link" aria-label="詳細を見る">詳細<!-- TODO: アーカイブ詳細ページへ --></a>
+        </li>
+        <li class="archive-list__item">
+          <time class="archive-list__date">2024</time>
+          <div class="archive-list__body">
+            <h3 class="archive-list__title">過去開催イベント（仮）</h3>
+            <p class="archive-list__meta">— <!-- TODO --></p>
+          </div>
+          <a href="#" class="archive-list__link" aria-label="詳細を見る">詳細</a>
+        </li>
+        <!-- TODO: 櫃田さんと相談しながら追記 -->
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 06: 出展者をご希望の方へ
+       ============================================ -->
+  <section id="exhibitors" class="section section--exhibitors" aria-label="出展者をご希望の方へ">
+    <div class="section__inner">
+      <header class="section__head">
+        <span class="section__num">06</span>
+        <h2 class="section__title">
+          <span class="section__title-jp">出展者をご希望の方へ</span>
+          <span class="section__title-en">For Exhibitors</span>
+        </h2>
+      </header>
+
+      <p class="section__lead">出展条件と応募方法をご確認のうえ、お申し込みください。</p>
+
+      <dl class="info-list">
+        <div class="info-list__row">
+          <dt class="info-list__term">募集期間</dt>
+          <dd class="info-list__desc">OO月OO日まで<!-- TODO --></dd>
+        </div>
+        <div class="info-list__row">
+          <dt class="info-list__term">出展料</dt>
+          <dd class="info-list__desc">OO,OOO円（予定）<!-- TODO --></dd>
+        </div>
+        <div class="info-list__row">
+          <dt class="info-list__term">ブースサイズ</dt>
+          <dd class="info-list__desc">幅 OOcm × 奥行 OOcm<!-- TODO --></dd>
+        </div>
+        <div class="info-list__row">
+          <dt class="info-list__term">出展条件</dt>
+          <dd class="info-list__desc">自主制作の本であること。ジャンル不問。<!-- TODO --></dd>
+        </div>
+        <div class="info-list__row">
+          <dt class="info-list__term">応募方法</dt>
+          <dd class="info-list__desc">下記のフォームよりお申し込みください。</dd>
+        </div>
+      </dl>
+
+      <div class="cta-block">
+        <a href="#" class="button button--primary"><!-- TODO: フォームURL差し替え -->
+          出展のお申し込みはこちら
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 07: ご来場の皆様へ
+       ============================================ -->
+  <section id="visitors" class="section section--visitors" aria-label="ご来場の皆様へ">
+    <div class="section__inner">
+      <header class="section__head">
+        <span class="section__num">07</span>
+        <h2 class="section__title">
+          <span class="section__title-jp">ご来場の皆様へ</span>
+          <span class="section__title-en">For Visitors</span>
+        </h2>
+      </header>
+
+      <dl class="info-list">
+        <div class="info-list__row">
+          <dt class="info-list__term">入場料</dt>
+          <dd class="info-list__desc">無料</dd>
+        </div>
+        <div class="info-list__row">
+          <dt class="info-list__term">事前予約</dt>
+          <dd class="info-list__desc">不要 / どなたでもご来場いただけます</dd>
+        </div>
+        <div class="info-list__row">
+          <dt class="info-list__term">支払い方法</dt>
+          <dd class="info-list__desc">現金 / 一部キャッシュレス（各作家により異なります）<!-- TODO --></dd>
+        </div>
+        <div class="info-list__row">
+          <dt class="info-list__term">お子様連れ</dt>
+          <dd class="info-list__desc">大歓迎です</dd>
+        </div>
+        <div class="info-list__row">
+          <dt class="info-list__term">撮影について</dt>
+          <dd class="info-list__desc">作品の撮影は各作家の了承のうえお願いいたします。<!-- TODO --></dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 08: よくあるご質問 (FAQ)
+       ============================================ -->
+  <section id="faq" class="section section--faq" aria-label="よくあるご質問">
+    <div class="section__inner">
+      <header class="section__head">
+        <span class="section__num">08</span>
+        <h2 class="section__title">
+          <span class="section__title-jp">よくあるご質問</span>
+          <span class="section__title-en">FAQ</span>
+        </h2>
+      </header>
+
+      <div class="faq-list">
+        <details class="faq-list__item">
+          <summary class="faq-list__q">入場に予約は必要ですか？</summary>
+          <div class="faq-list__a">
+            <p>予約不要、どなたでもご自由にご来場いただけます。</p>
+          </div>
+        </details>
+
+        <details class="faq-list__item">
+          <summary class="faq-list__q">駐車場はありますか？</summary>
+          <div class="faq-list__a">
+            <p>モリコロパーク内に有料駐車場があります。混雑が予想されますので、公共交通機関でのご来場をおすすめします。<!-- TODO --></p>
+          </div>
+        </details>
+
+        <details class="faq-list__item">
+          <summary class="faq-list__q">出展の条件は何ですか？</summary>
+          <div class="faq-list__a">
+            <p>自主制作の本であれば、ジャンルや部数に制限はありません。詳しくは「出展者をご希望の方へ」のセクションをご確認ください。<!-- TODO --></p>
+          </div>
+        </details>
+
+        <details class="faq-list__item">
+          <summary class="faq-list__q">途中入退場はできますか？</summary>
+          <div class="faq-list__a">
+            <p>はい、再入場も可能です。お気軽にご来場ください。</p>
+          </div>
+        </details>
+
+        <details class="faq-list__item">
+          <summary class="faq-list__q">支払い方法は何が使えますか？</summary>
+          <div class="faq-list__a">
+            <p>現金が基本となります。キャッシュレス決済は各作家によって対応が異なりますので、ブースで直接ご確認ください。<!-- TODO --></p>
+          </div>
+        </details>
+
+        <!-- TODO: 想定質問を追加 -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 09: お知らせ (News)
+       ============================================ -->
+  <section id="news" class="section section--news" aria-label="お知らせ">
+    <div class="section__inner">
+      <header class="section__head">
+        <span class="section__num">09</span>
+        <h2 class="section__title">
+          <span class="section__title-jp">お知らせ</span>
+          <span class="section__title-en">News</span>
+        </h2>
+      </header>
+
+      <ul class="news-list">
+        <li class="news-list__item">
+          <time class="news-list__date" datetime="2026-05-17">2026.05.17</time>
+          <span class="news-list__tag">サイト</span>
+          <p class="news-list__title">公式サイトを公開しました</p>
+        </li>
+        <!-- TODO: 新しいお知らせは上に追加 -->
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner">
+
+      <div class="footer__col footer__col--brand">
+        <p class="footer__brand">
+          <span class="footer__brand-jp">ながくて Art Book Lab.</span>
+          <span class="footer__brand-en">mcd mix 2026</span>
+        </p>
+        <p class="footer__meta">
+          2026.10.3<span class="footer__meta-sub">(sat)</span>
+          <span class="footer__meta-sep">／</span>
+          4<span class="footer__meta-sub">(sun)</span>
+        </p>
+        <p class="footer__venue">愛・地球博記念公園 モリコロパーク</p>
+      </div>
+
+      <nav class="footer__col footer__col--nav" aria-label="フッターナビゲーション">
+        <p class="footer__col-title">Menu</p>
+        <ul class="footer__nav-list">
+          <li><a href="#overview">イベント概要</a></li>
+          <li><a href="#about">MCD MIXについて</a></li>
+          <li><a href="#target-content">出展可能作品</a></li>
+          <li><a href="#schedule">スケジュール</a></li>
+          <li><a href="#past-events">過去のイベント</a></li>
+          <li><a href="#exhibitors">出展者をご希望の方へ</a></li>
+          <li><a href="#visitors">ご来場の皆様へ</a></li>
+          <li><a href="#faq">よくあるご質問</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__col footer__col--social">
+        <p class="footer__col-title">Follow Us</p>
+        <ul class="footer__social-list">
+          <li><a href="#" aria-label="X (Twitter)">X</a></li>           <!-- TODO -->
+          <li><a href="#" aria-label="Instagram">Instagram</a></li>      <!-- TODO -->
+          <li><a href="mailto:contact@example.com" aria-label="メール">Contact</a></li> <!-- TODO -->
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <small class="footer__copy">© 2026 MCD MIX 実行委員会<!-- TODO: 正式名称確定 --></small>
+    </div>
+  </footer>
 
   <script src="js/main.js"></script>
 </body>
