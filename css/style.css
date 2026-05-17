@@ -256,7 +256,7 @@ button {
   left: 0.5rem;
   writing-mode: vertical-rl;
   font-family: var(--font-display);
-  font-size: 3.2rem;          /* date-content の総高さに合わせる（3.0→3.2rem） */
+  font-size: 3.5rem;          /* date-content の総高さに合わせる（3.2→3.5remにさらに拡大） */
   line-height: 1;
   letter-spacing: 0.05em;
   color: var(--color-ink);
@@ -337,7 +337,7 @@ button {
   z-index: var(--z-panel);
   align-self: center;             /* 縦中央 */
   justify-self: end;              /* 横は右端寄せ */
-  max-width: 32rem;               /* 幅を制限 */
+  max-width: 36rem;               /* 幅を制限（32→36remに緩めて右余白を確保） */
   transform: translateY(3rem);    /* 中央からさらに下にずらす */
   margin: 0;
   background-color: var(--color-cream-paper);
@@ -353,7 +353,7 @@ button {
 }
 
 .hero__panel-inner {
-  padding: 4rem 1.5rem 2rem 3rem;   /* 上を5rem→4remに詰めて、文字を罫線に被らない位置へ */
+  padding: 4rem 8rem 2rem 3rem;   /* 右パディング 1.5rem→8remに增やす（少し右側に余白を作る） */
 }
 
 /* 「ながくて」 */
@@ -370,7 +370,7 @@ button {
   font-size: 5rem;
   line-height: var(--rule-gap);   /* 罫線にあわせる */
   font-weight: 900;
-  letter-spacing: 0.02em;         /* 詰め過ぎ解消（-0.02→+0.02em） */
+  letter-spacing: 0.02em;         /* 詰め過ぎ解消（-0.02→+0x.02em） */
   margin: 0.5rem 0 3rem;
   display: flex;
   flex-direction: column;
@@ -380,7 +380,8 @@ button {
 /* 「Lab.」を「Book」の右側に揃える */
 .hero__panel-title__lab {
   align-self: flex-end;           /* 親（=Art Bookの幅）の右端に寄せる */
-  margin-top: 2rem;               /* Art Bookとの間に1罫線分の空き（旧0.5rem→2rem） */
+  margin-top: 2rem;               /* Art Bookとの間に1罫線分の空き */
+  transform: translateX(2ch);     /* さらに2文字分（≒1em）右にずらす */
 }
 
 /* 説明文 */
@@ -395,7 +396,7 @@ button {
 
 /* -------------------------------------------------------------
    6. レスポンシブ（モバイル対応）
-   ※ モバイルの細かい挙動は今後デザインを見ながら調整
+   ※モバイルの細かい指動は今後デインを見ながら調整
    ------------------------------------------------------------- */
 
 /* タブレット以下：1080px以下 */
@@ -414,7 +415,7 @@ button {
   }
 }
 
-/* モバイル：768px以下、縦積みレイアウトに切り替え */
+/* モバイル：768px以下、縮積みレイアウトに切り替え */
 @media (max-width: 768px) {
   :root {
     --container-pad-x: 1rem;
@@ -438,7 +439,7 @@ button {
     padding: 0.5rem 0.8rem;
   }
 
-  /* ヒーロー：縦積み、100vh固定を解除 */
+  /* ヒーロー：縮穤み、100vh固定を解除 */
   .hero {
     height: auto;
     min-height: 100vh;        /* モバイルでは内容次第で伸ばす */
