@@ -1,109 +1,45 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ながくて Art Book Lab. / mcd mix 2026</title>
-  <meta name="description" content="2026年10月、愛・地球博記念公園で開催。アーティストブック・ZINE・写真集・絵本・漫画・文芸誌など多様な自主制作本の出展・販売イベント。">
+<!-- ============================================
+       SECTION 01: イベント概要 (Overview)
+       ============================================ -->
+  <section id="overview" class="section" aria-label="イベント概要">
+    <div class="section__inner">
+      <header class="section__head">
+        <span class="section__num">01</span>
+        <h2 class="section__title">
+          <span class="section__title-jp">イベント概要</span>
+          <span class="section__title-en">Overview</span>
+        </h2>
+      </header>
 
-  <!-- OGP（SNSシェア用、必要に応じて編集してください） -->
-  <meta property="og:title" content="ながくて Art Book Lab. / mcd mix 2026">
-  <meta property="og:description" content="2026年10月、愛・地球博記念公園で開催される自主制作本のアートブックイベント。">
-  <meta property="og:type" content="website">
-
-  <!-- Google Fonts: Noto Sans JP（日本語本文用） + Archivo Black（英文タイトル用） -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-  <!-- 背景レイヤー（常に画面に固定、コンテンツがこの上に乗る） -->
-  <div class="bg-layer" aria-hidden="true">
-    <img src="images/bc-1.jpg" alt="">
-  </div>
-
-  <!-- ヘッダー（スクロール時もstickyで画面上部に固定） -->
-  <header class="header" role="banner">
-    <div class="header__inner">
-
-      <!-- ロゴ：navから3割程度下に飛び出す配置 -->
-      <a href="/" class="header__logo" aria-label="mcd mix ホーム">
-        <img src="images/logo.png" alt="mcd mix">
-      </a>
-
-      <!-- メインナビゲーション -->
-      <nav class="header__nav" aria-label="メインナビゲーション">
-        <ul class="header__nav-list">
-          <li><a href="#overview">イベント概要</a></li>
-          <li><a href="#past-events">過去のイベント</a></li>
-          <li><a href="#exhibitors">出展者をご希望の方へ</a></li>
-          <li><a href="#visitors">ご来場の皆様へ</a></li>
-          <li><a href="#faq">よくあるご質問</a></li>
-        </ul>
-      </nav>
-
-      <!-- 出展申込CTA（黒ボックス） -->
-      <a href="#exhibitors" class="header__cta">出展のお申し込みはこちら</a>
-
-    </div>
-  </header>
-
-  <!-- ヒーローセクション -->
-  <section class="hero" aria-label="メインビジュアル">
-    <div class="hero__inner">
-
-      <!-- 左側：日時・会場情報・出展者募集CTA -->
-      <div class="hero__date-block">
-
-        <!-- 縦書きの年 -->
-        <span class="hero__year" aria-hidden="true">2026</span>
-
-        <div class="hero__date-content">
-          <!-- 開催日 -->
-          <p class="hero__date-main">
-            <span class="hero__date-day">10.3</span><span class="hero__date-suffix">(sat)</span>
-            <span class="hero__date-sep"> / </span>
-            <span class="hero__date-day">4</span><span class="hero__date-suffix">(sun)</span>
-          </p>
-
-          <!-- 会場 -->
-          <p class="hero__venue">愛・地球博記念公園 モリコロパーク</p>
-          <p class="hero__venue">地域交流センター 体験学習室3</p>
-
-          <!-- 出展者募集中バナー -->
-          <a href="#exhibitors" class="hero__recruit">
-            <span class="hero__recruit-label">【出展者募集中】</span>
-            <span class="hero__recruit-deadline">OO月OO日まで</span>
-          </a>
+      <dl class="info-list">
+        <div class="info-list__row">
+          <dt class="info-list__term">開催日</dt>
+          <dd class="info-list__desc">
+            <span class="info-list__highlight">2026.10.3</span><span class="info-list__sub">(sat)</span>
+            <span class="info-list__sep">／</span>
+            <span class="info-list__highlight">4</span><span class="info-list__sub">(sun)</span>
+          </dd>
         </div>
-
-      </div>
-
-      <!-- 右側：ノートブック風パネル -->
-      <div class="hero__panel">
-        <div class="hero__panel-inner">
-          <p class="hero__panel-sub">ながくて</p>
-          <h1 class="hero__panel-title">
-            <span>Art&nbsp;Book</span>
-            <span class="hero__panel-title__lab">Lab.</span>
-          </h1>
-          <p class="hero__panel-desc">アーティストブック、ZINE、写真集、絵本、漫画、文芸誌など多様なジャンルの本を出展・販売し来場者と交流するイベントです</p>
+        <div class="info-list__row">
+          <dt class="info-list__term">時間</dt>
+          <dd class="info-list__desc">OO:OO - OO:OO（予定）</dd>
         </div>
-      </div>
-
+        <div class="info-list__row">
+          <dt class="info-list__term">会場</dt>
+          <dd class="info-list__desc">愛・地球博記念公園 モリコロパーク<br>地域交流センター 体験学習室3</dd>
+        </div>
+        <div class="info-list__row">
+          <dt class="info-list__term">アクセス</dt>
+          <dd class="info-list__desc">リニモ「愛・地球博記念公園駅」より徒歩約3分</dd>
+        </div>
+        <div class="info-list__row">
+          <dt class="info-list__term">入場料</dt>
+          <dd class="info-list__desc">無料</dd>
+        </div>
+        <div class="info-list__row">
+          <dt class="info-list__term">主催</dt>
+          <dd class="info-list__desc">MCD MIX 実行委員会</dd>
+        </div>
+      </dl>
     </div>
   </section>
-
-  <!-- ヒーロー以下のセクションは次のステップで追加予定 -->
-  <!-- <section id="overview">...</section>  → イベント概要 -->
-  <!-- <section id="past-events">...</section>  → 過去のイベント -->
-  <!-- <section id="exhibitors">...</section>  → 出展者向け -->
-  <!-- <section id="visitors">...</section>  → 来場者向け -->
-  <!-- <section id="faq">...</section>  → FAQ -->
-
-  <script src="js/main.js"></script>
-</body>
-</html>
