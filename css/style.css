@@ -27,7 +27,7 @@
 
   /* ----- レイアウト ----- */
   --header-height:    4rem;     /* ヘッダーの高さ：64px */
-  --logo-size:        5.8rem;   /* ロゴ直径：約93px（header×1.45で約30%下に飛び出す） */
+  --logo-size:        8.1rem;   /* ロゴ直径：約130px（headerに対し約1.4倍） */
   --logo-offset-x:    1.5rem;   /* ロゴの左端からの距離 */
   --container-pad-x:  2rem;     /* 横方向の基本パディング */
 
@@ -240,11 +240,12 @@ button {
 /* 縦書き「2026」 */
 .hero__year {
   position: absolute;
-  top: 2rem;
+  top: auto;
+  bottom: 3rem;               /* 下寄せ：日付ブロックと縦位置を揃える */
   left: 0.5rem;
   writing-mode: vertical-rl;
   font-family: var(--font-display);
-  font-size: 2.5rem;
+  font-size: 3rem;            /* 少し大きく（2.5→3.0rem） */
   line-height: 1;
   letter-spacing: 0.05em;
   color: var(--color-ink);
@@ -254,6 +255,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: max-content;          /* 子の中で最大幅（=日付の幅）にあわせて縮める */
 }
 
 /* 開催日（10.3 / 4） */
@@ -284,7 +286,7 @@ button {
 
 /* 会場 */
 .hero__venue {
-  font-size: 1rem;
+  font-size: 1.15rem;          /* 1.0→1.15rem */
   font-weight: 700;
   color: var(--color-ink);
   margin: 0;
@@ -295,13 +297,14 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  margin-top: 2rem;
+  margin-top: 0.5rem;          /* 上の余白を狭く（旧2rem → 0.5rem） */
   padding: 0.7rem 1.2rem;
   background: var(--color-cta-bg);
   color: var(--color-cta-text);
   font-size: 0.95rem;
   font-weight: 700;
-  align-self: flex-start;   /* 横幅を内容に合わせる */
+  align-self: stretch;            /* 親（date-content）の幅にあわせる＝日付の幅と同じ */
+  justify-content: space-between; /* ラベルと締切日を両端に */
   transition: background 0.2s ease;
 }
 
@@ -321,7 +324,8 @@ button {
 .hero__panel {
   position: relative;
   z-index: var(--z-panel);
-  align-self: center;         /* 縦中央：100vhの中央に配置 */
+  align-self: center;             /* 縦中央 */
+  transform: translateY(3rem);    /* 中央からさらに下にずらす */
   margin: 0;
   background-color: var(--color-cream-paper);
   /* 罫線の重ね：背景色の上に水平罫線を描画 */
@@ -336,7 +340,7 @@ button {
 }
 
 .hero__panel-inner {
-  padding: 3rem 3rem 4rem;
+  padding: 5rem 3rem 2rem;       /* 上を増やしテキストを下寄せに、下は減らす */
 }
 
 /* 「ながくて」 */
@@ -344,17 +348,26 @@ button {
   font-size: 1.75rem;
   font-weight: 500;
   line-height: var(--rule-gap);   /* 罫線にあわせる */
-  margin: 0;
+  margin: 0 0 1rem 0;             /* 下に1remの空き */
 }
 
-/* 「Art Book Lab.」 */
+/* 「Art Book」「Lab.」 — 縦並び、Lab.は右寄せ */
 .hero__panel-title {
   font-family: var(--font-display);
   font-size: 5rem;
-  line-height: var(--rule-gap);   /* 罫線にあわせる：2倍の高さで2行分 */
+  line-height: var(--rule-gap);   /* 罫線にあわせる */
   font-weight: 900;
   letter-spacing: -0.02em;
-  margin: 0.5rem 0 2rem;
+  margin: 0.5rem 0 3rem;          /* 下を空ける（旧2rem→3rem） */
+  display: flex;
+  flex-direction: column;
+  width: max-content;             /* 「Art Book」の幅にぴったり合わせる */
+}
+
+/* 「Lab.」を「Book」の右側に揃える */
+.hero__panel-title__lab {
+  align-self: flex-end;           /* 親（=Art Bookの幅）の右端に寄せる */
+  margin-top: 0.5rem;             /* Art Bookとの間に空き */
 }
 
 /* 説明文 */
@@ -363,7 +376,7 @@ button {
   font-weight: 700;
   line-height: var(--rule-gap);   /* 罫線にあわせる */
   max-width: 28em;
-  margin: 1.5rem 0 0;
+  margin: 0;                       /* 上マージン削除：タイトル側の margin-bottom で管理 */
 }
 
 
