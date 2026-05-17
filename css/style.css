@@ -252,11 +252,11 @@ button {
 .hero__year {
   position: absolute;
   top: auto;
-  bottom: 3rem;               /* date-content の下端と揃える（padding-bottom と一致） */
-  left: 0.5rem;
+  bottom: 2.6rem;             /* DevToolsで調整された値で固定 */
+  left: -1rem;
   writing-mode: vertical-rl;
   font-family: var(--font-display);
-  font-size: 3.5rem;          /* date-content の総高さに合わせる（3.2→3.5remにさらに拡大） */
+  font-size: 4.4rem;          /* 大きく主張させる（最終確定値） */
   line-height: 1;
   letter-spacing: 0.05em;
   color: var(--color-ink);
@@ -353,7 +353,7 @@ button {
 }
 
 .hero__panel-inner {
-  padding: 4rem 8rem 2rem 3rem;   /* 右パディング 1.5rem→8remに增やす（少し右側に余白を作る） */
+  padding: 4rem 8rem 2rem 3rem;   /* 右パディングを1.5rem→8remに増やす（少し右側に余白を作る） */
 }
 
 /* 「ながくて」 */
@@ -370,7 +370,7 @@ button {
   font-size: 5rem;
   line-height: var(--rule-gap);   /* 罫線にあわせる */
   font-weight: 900;
-  letter-spacing: 0.02em;         /* 詰め過ぎ解消（-0.02→+0x.02em） */
+  letter-spacing: 0.02em;         /* 詰め過ぎ解消（-0.02→+0.02em） */
   margin: 0.5rem 0 3rem;
   display: flex;
   flex-direction: column;
@@ -394,9 +394,126 @@ button {
 }
 
 
+/* ============================================================
+   セクション共通スタイル（hero以降の各セクションで使用）
+   ============================================================ */
+.section {
+  position: relative;
+  z-index: var(--z-content);
+  padding: 6rem 0;
+  scroll-margin-top: var(--header-height);   /* sticky header の高さ分オフセット */
+}
+
+.section__inner {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 var(--container-pad-x);
+}
+
+/* セクションヘッダー：番号 ＋ 日本語タイトル ＋ 英語タイトル */
+.section__head {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--color-ink);
+}
+
+.section__num {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  letter-spacing: 0.1em;
+  color: var(--color-ink-soft);
+  flex-shrink: 0;
+}
+
+.section__title {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  flex: 1;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+.section__title-jp {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: var(--color-ink);
+  line-height: 1.2;
+}
+
+.section__title-en {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  letter-spacing: 0.2em;
+  color: var(--color-ink-soft);
+  text-transform: uppercase;
+}
+
+
+/* ============================================================
+   情報リスト：dl/dt/dd（イベント概要などの定義リスト用）
+   ============================================================ */
+.info-list {
+  background: var(--color-cream-paper);
+  padding: 1rem 3rem;
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.06);
+}
+
+.info-list__row {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--color-divider);
+  align-items: baseline;
+}
+
+.info-list__row:last-child {
+  border-bottom: none;
+}
+
+.info-list__term {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-soft);
+  margin: 0;
+}
+
+.info-list__desc {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-ink);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* 日付などの強調表示 */
+.info-list__highlight {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  letter-spacing: -0.01em;
+}
+
+.info-list__sub {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  margin-left: 0.15em;
+}
+
+.info-list__sep {
+  margin: 0 0.4em;
+  font-family: var(--font-display);
+}
+
+
 /* -------------------------------------------------------------
    6. レスポンシブ（モバイル対応）
-   ※モバイルの細かい指動は今後デインを見ながら調整
+   ※ モバイルの細かい挙動は今後デザインを見ながら調整
    ------------------------------------------------------------- */
 
 /* タブレット以下：1080px以下 */
@@ -415,7 +532,7 @@ button {
   }
 }
 
-/* モバイル：768px以下、縮積みレイアウトに切り替え */
+/* モバイル：768px以下、縦積みレイアウトに切り替え */
 @media (max-width: 768px) {
   :root {
     --container-pad-x: 1rem;
@@ -439,7 +556,7 @@ button {
     padding: 0.5rem 0.8rem;
   }
 
-  /* ヒーロー：縮穤み、100vh固定を解除 */
+  /* ヒーロー：縦積み、100vh固定を解除 */
   .hero {
     height: auto;
     min-height: 100vh;        /* モバイルでは内容次第で伸ばす */
@@ -470,5 +587,34 @@ button {
 
   .hero__panel-title {
     font-size: 3rem;
+  }
+
+  /* ----- セクション共通 ----- */
+  .section {
+    padding: 4rem 0;
+  }
+
+  .section__head {
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+  }
+
+  .section__title-jp {
+    font-size: 1.5rem;
+  }
+
+  /* ----- 情報リスト ----- */
+  .info-list {
+    padding: 0.5rem 1.5rem;
+  }
+
+  .info-list__row {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+    padding: 1.25rem 0;
+  }
+
+  .info-list__highlight {
+    font-size: 1.5rem;
   }
 }
