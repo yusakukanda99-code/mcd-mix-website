@@ -212,8 +212,8 @@ button {
 .hero {
   position: relative;
   z-index: var(--z-content);
-  min-height: calc(100vh - var(--header-height));
-  padding: 3rem 0 4rem;
+  height: calc(100vh - var(--header-height));   /* 100vh固定（ヘッダー高さを除く） */
+  padding: 0;
 }
 
 .hero__inner {
@@ -226,15 +226,15 @@ button {
   padding: 0 var(--container-pad-x);
 }
 
-/* ----- ヒーロー左：日時ブロック ----- */
+/* ----- ヒーロー左：日時ブロック（下寄せ） ----- */
 .hero__date-block {
   position: relative;
   padding-left: 3.5rem;       /* 縦書き2026の幅を確保 */
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;  /* 下寄せ：内容を100vhの下端に寄せる */
+  gap: 1.5rem;
 }
 
 /* 縦書き「2026」 */
@@ -317,11 +317,12 @@ button {
   font-weight: 700;
 }
 
-/* ----- ヒーロー右：ノートブック風パネル ----- */
+/* ----- ヒーロー右：ノートブック風パネル（縦中央寄せ） ----- */
 .hero__panel {
   position: relative;
   z-index: var(--z-panel);
-  margin: 2rem 0 4rem;
+  align-self: center;         /* 縦中央：100vhの中央に配置 */
+  margin: 0;
   background-color: var(--color-cream-paper);
   /* 罫線の重ね：背景色の上に水平罫線を描画 */
   background-image: repeating-linear-gradient(
@@ -411,7 +412,12 @@ button {
     padding: 0.5rem 0.8rem;
   }
 
-  /* ヒーロー：縦積み */
+  /* ヒーロー：縦積み、100vh固定を解除 */
+  .hero {
+    height: auto;
+    min-height: 100vh;        /* モバイルでは内容次第で伸ばす */
+  }
+
   .hero__inner {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -419,7 +425,8 @@ button {
 
   .hero__date-block {
     padding-left: 2.5rem;
-    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+    justify-content: flex-start; /* モバイルでは上から流す */
   }
 
   .hero__year {
