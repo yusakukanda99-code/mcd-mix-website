@@ -174,11 +174,22 @@ button {
 .header__nav-list a {
   position: relative;
   padding: 0.5rem 0;
-  transition: opacity 0.2s ease;
 }
 
-.header__nav-list a:hover {
-  opacity: 0.6;
+/* ホバー時：アンダーラインが左から右へ伸びる */
+.header__nav-list a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+
+.header__nav-list a:hover::after {
+  width: 100%;
 }
 
 /* 出展申込CTA（黒ボックス） */
@@ -223,7 +234,7 @@ button {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
   gap: 2rem;
-  padding: 0 var(--container-pad-x);
+  padding: 0 0 0 var(--container-pad-x);   /* 右パディング削除：パネルを画面右端に密着 */
 }
 
 /* ----- ヒーロー左：日時ブロック（下寄せ） ----- */
@@ -241,11 +252,11 @@ button {
 .hero__year {
   position: absolute;
   top: auto;
-  bottom: 3rem;               /* 下寄せ：日付ブロックと縦位置を揃える */
+  bottom: 2rem;               /* 日付（10.3/4）の上端と縦位置を揃える */
   left: 0.5rem;
   writing-mode: vertical-rl;
   font-family: var(--font-display);
-  font-size: 3rem;            /* 少し大きく（2.5→3.0rem） */
+  font-size: 3rem;
   line-height: 1;
   letter-spacing: 0.05em;
   color: var(--color-ink);
@@ -263,7 +274,7 @@ button {
   font-family: var(--font-display);
   font-size: 3.5rem;
   line-height: 1;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;        /* 下の余白を半分に（1rem→0.5rem） */
   letter-spacing: -0.01em;
   display: flex;
   align-items: baseline;
@@ -340,7 +351,7 @@ button {
 }
 
 .hero__panel-inner {
-  padding: 5rem 3rem 2rem;       /* 上を増やしテキストを下寄せに、下は減らす */
+  padding: 5rem 1.5rem 2rem 3rem;   /* 右パディングを3rem→1.5remに詰める */
 }
 
 /* 「ながくて」 */
@@ -367,7 +378,7 @@ button {
 /* 「Lab.」を「Book」の右側に揃える */
 .hero__panel-title__lab {
   align-self: flex-end;           /* 親（=Art Bookの幅）の右端に寄せる */
-  margin-top: 0.5rem;             /* Art Bookとの間に空き */
+  margin-top: 2rem;               /* Art Bookとの間に1罫線分の空き（旧0.5rem→2rem） */
 }
 
 /* 説明文 */
