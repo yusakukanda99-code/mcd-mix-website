@@ -869,3 +869,18 @@ button { border: none; background: none; font: inherit; cursor: pointer; }
   .footer__nav-list { gap: 0.75rem 1.5rem; }
   .footer__brand-name { font-size: 1.25rem; }
 }
+
+
+/* Footer: match nav cream-paper bg, black text */
+.footer {
+  background: var(--color-cream-paper);
+  color: #000;
+}
+
+.footer, .footer * {
+  color: #000;
+}
+
+.footer a {
+  color: #000;
+}

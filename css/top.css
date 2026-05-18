@@ -14,7 +14,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 10vh;
+  bottom: 20vh;
   width: 100%;
 }
 
@@ -460,4 +460,32 @@
   letter-spacing: 0.08em;
   margin: 0;
   white-space: nowrap;
+}
+
+
+/* About section title: right-aligned, flush to right edge */
+.section--about .section__inner {
+  padding-right: 0;
+}
+
+.section--about .section__body {
+  padding-right: var(--container-pad-x);
+}
+
+.section--about .section__head {
+  text-align: right;
+  padding-right: 0;
+  margin-right: 0;
+}
+
+.section--about .section__title {
+  align-items: flex-end;
+  text-align: right;
+  margin-right: 0;
+}
+
+.section--about .section__title-jp,
+.section--about .section__title-en {
+  text-align: right;
+  display: block;
 }
