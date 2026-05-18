@@ -5,12 +5,16 @@
 
 /* HERO（ブランド版） */
 .hero--brand {
-  height: auto;
-  min-height: calc(100vh - var(--header-height));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6rem var(--container-pad-x);
+  position: relative;
+  height: 100vh;
+  padding: 0;
+}
+
+.hero--brand .brand-ticker {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10vh;
 }
 
 .hero-brand__inner {
