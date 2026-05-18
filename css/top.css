@@ -15,6 +15,7 @@
   left: 0;
   right: 0;
   bottom: 10vh;
+  width: 100%;
 }
 
 .hero-brand__inner {
@@ -375,9 +376,6 @@
 
 /* モバイル対応 */
 @media (max-width: 768px) {
-  .hero--brand {
-    padding: 4rem var(--container-pad-x);
-  }
   .hero-brand__tagline { font-size: 1rem; }
   .hero-brand__title { font-size: clamp(3rem, 14vw, 5rem); }
 
@@ -437,4 +435,29 @@
 @keyframes brand-ticker-flow {
   0%   { transform: translate3d(0, 0, 0); }
   100% { transform: translate3d(-100%, 0, 0); }
+}
+
+
+/* Brand Hero caption (top-left vertical text) */
+.brand-hero__caption {
+  position: absolute;
+  top: calc(var(--header-height) + 1.5rem);
+  left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  z-index: 1;
+  pointer-events: none;
+  color: var(--color-ink);
+}
+
+.brand-hero__caption-line {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin: 0;
+  white-space: nowrap;
 }
