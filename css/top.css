@@ -468,5 +468,4 @@
 
 .section--about .section__title {
   justify-content: flex-end;
-  margin-right: calc(-3.5rem - max(0px, (100vw - 64rem) / 2));
 }
