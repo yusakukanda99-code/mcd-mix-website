@@ -14,7 +14,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 20vh;
+  bottom: 12vh;
   width: 100%;
 }
 
@@ -416,7 +416,7 @@
   overflow: hidden;
   white-space: nowrap;
   font-family: var(--font-jp);
-  font-size: 0.9rem;
+  font-size: 1.5rem;
   letter-spacing: 0.08em;
   font-weight: 500;
   padding: 0.4rem 0;
@@ -445,47 +445,28 @@
   left: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.3rem;
   z-index: 1;
   pointer-events: none;
   color: var(--color-ink);
 }
 
 .brand-hero__caption-line {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   margin: 0;
   white-space: nowrap;
 }
 
 
-/* About section title: right-aligned, flush to right edge */
-.section--about .section__inner {
-  padding-right: 0;
-}
-
-.section--about .section__body {
-  padding-right: var(--container-pad-x);
-}
-
+/* About section title: pushed to viewport right edge */
 .section--about .section__head {
   text-align: right;
-  padding-right: 0;
-  margin-right: 0;
 }
 
 .section--about .section__title {
-  align-items: flex-end;
-  text-align: right;
-  margin-right: 0;
-}
-
-.section--about .section__title-jp,
-.section--about .section__title-en {
-  text-align: right;
-  display: block;
+  justify-content: flex-end;
+  margin-right: calc(-3.5rem - max(0px, (100vw - 64rem) / 2));
 }
