@@ -400,3 +400,37 @@
 
   .footer__main { grid-template-columns: 1fr; gap: 2rem; }
 }
+
+
+/* =========================================================
+   Brand Ticker (黒帯 × 右→左スクロール)
+   ========================================================= */
+.brand-ticker {
+  position: relative;
+  z-index: var(--z-content);
+  width: 100%;
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: var(--font-jp);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  padding: 0.4rem 0;
+}
+
+.brand-ticker__track {
+  display: inline-block;
+  padding-left: 100%;
+  animation: brand-ticker-flow 30s linear infinite;
+}
+
+.brand-ticker__text {
+  display: inline-block;
+}
+
+@keyframes brand-ticker-flow {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-100%, 0, 0); }
+}
