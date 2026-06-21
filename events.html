@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event 一覧 — MCD MIX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* =========================================================
+       BASE（仮）— 後で base.css として切り出します
+       ========================================================= */
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { overflow-x: clip; }   /* 破れ紙108%幅やテープ左見切れによる横スクロールを抑止（clipでstickyを壊さない） */
+    /* リンクにもデフォルト（黒塗り）のカスタムカーソル */
+    a {
+      cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2222%22%20height%3D%2226%22%20viewBox%3D%220%200%2089.85%20104.5%22%3E%3Cpolygon%20points%3D%221.58%202.24%2026.18%20102.34%2051.15%2072.47%2087.65%2058.95%201.58%202.24%22%20fill%3D%22%23211815%22%20stroke%3D%22%23fff%22%20stroke-miterlimit%3D%2210%22%20stroke-width%3D%222%22/%3E%3C/svg%3E") 2 2, pointer;
+    }
+    /* ボタンの上では黒白反転カーソル（白塗り＋黒縁） */
+    .site-header__cta, .hero__card-cta, .about__more, .news__more,
+    .event__card-link, .event__arrow, button, [role="button"] {
+      cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2222%22%20height%3D%2226%22%20viewBox%3D%220%200%2089.85%20104.5%22%3E%3Cpolygon%20points%3D%221.58%202.24%2026.18%20102.34%2051.15%2072.47%2087.65%2058.95%201.58%202.24%22%20fill%3D%22%23fff%22%20stroke%3D%22%23211815%22%20stroke-miterlimit%3D%2210%22%20stroke-width%3D%222%22/%3E%3C/svg%3E") 2 2, pointer;
+    }
+    body {
+      background-color: #F6EEE2;
+      /* ページ共通の方眼グリッド（白い紙の下〜スライダーまで連続して見える） */
+      background-image:
+        linear-gradient(rgba(150, 120, 90, 0.10) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(150, 120, 90, 0.10) 1px, transparent 1px);
+      background-size: 26px 26px;
+      min-height: 100vh;
+      overflow-x: clip;
+      font-family: "Noto Sans JP", sans-serif;
+      color: #1a1a1a;
+      /* カスタムマウスカーソル（SVG・先端を基点に） */
+      cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2222%22%20height%3D%2226%22%20viewBox%3D%220%200%2089.85%20104.5%22%3E%3Cpolygon%20points%3D%221.58%202.24%2026.18%20102.34%2051.15%2072.47%2087.65%2058.95%201.58%202.24%22%20fill%3D%22%23211815%22%20stroke%3D%22%23fff%22%20stroke-miterlimit%3D%2210%22%20stroke-width%3D%222%22/%3E%3C/svg%3E") 2 2, auto;
+    }
+
+    /* =========================================================
+       PART 1 — Header / Top Navigation
+       ========================================================= */
+    .site-header {
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      width: 100%;
+      background: #fffdf2;
+      overflow: visible;
+    }
+    .site-header__inner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      width: 100%;
+      padding: 0.6rem 2rem;
+    }
+    .site-header__logo {
+      position: absolute;
+      left: 2rem;
+      /* ヘッダー下端を基準に、ロゴ高さの30%だけ下へはみ出させる（高さ92px → 約28px下に出る） */
+      bottom: -28px;
+      display: block;
+      flex-shrink: 0;
+      line-height: 0;
+      z-index: 110;
+    }
+    .site-header__logo img { display: block; width: 92px; height: auto; object-fit: contain; }
+    /* ロゴが absolute になった分、nav 側がロゴ幅に被らないよう左に余白を確保 */
+    .site-header__inner { padding-left: calc(2rem + 80px + 1.5rem); }
+    .site-header__nav { flex: 1 1 auto; display: flex; justify-content: center; }
+    .site-header__nav-list {
+      display: flex; align-items: center; gap: 2.5rem;
+      margin: 0; padding: 0; list-style: none;
+    }
+    .site-header__nav-list a {
+      position: relative;
+      display: inline-block; text-decoration: none; color: #1a1a1a;
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 1.05rem; font-weight: 500; letter-spacing: 0.04em;
+      padding-bottom: 4px;
+    }
+    .site-header__nav-list a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1.5px;
+      background: #1a1a1a;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.28s ease;
+    }
+    .site-header__nav-list a:hover::after { transform: scaleX(1); }
+    .site-header__cta {
+      flex-shrink: 0; display: inline-block; padding: 0.85rem 1.5rem;
+      background: #111; color: #fff; text-decoration: none;
+      font-family: "Noto Sans JP", sans-serif; font-size: 0.85rem;
+      font-weight: 700; letter-spacing: 0.04em; white-space: nowrap;
+      border-radius: 3px; transition: opacity 0.2s ease;
+    }
+    .site-header__cta:hover { opacity: 0.85; }
+    /* ハンバーガーボタン（PCでは非表示） */
+    .site-header__burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      padding: 9px;
+      margin-left: auto;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 120;
+    }
+    .site-header__burger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #1a1a1a;
+      border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+    .site-header.is-open .site-header__burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .site-header.is-open .site-header__burger span:nth-child(2) { opacity: 0; }
+    .site-header.is-open .site-header__burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    /* SPメニューのフェードイン */
+    @keyframes spMenuFade { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes spItemRise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 860px) {
+      .site-header__inner { padding: 0.6rem 1.25rem; padding-left: calc(1.25rem + 78px + 1rem); }
+      .site-header__burger { display: inline-flex; }
+      /* 閉じている時は nav と CTA を隠す */
+      .site-header__nav, .site-header__cta { display: none; }
+      /* 開いた時：全画面オーバーレイ（ロゴ左・nav左寄せ・CTA下・×右上） */
+      .site-header.is-open {
+        position: fixed;
+        inset: 0;
+        height: 100vh;
+        height: 100dvh;
+        background: #F6EEE2;
+        z-index: 300;
+        overflow-y: auto;
+        animation: spMenuFade 0.3s ease both;
+      }
+      .site-header.is-open .site-header__inner {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-auto-rows: min-content;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        gap: 1.8rem 3rem;
+        width: 100%;
+        height: 100%;
+        padding: 2rem 1.5rem;
+      }
+      .site-header.is-open .site-header__logo {
+        position: static;
+        grid-column: 1;
+        grid-row: 1 / 3;
+        justify-self: center;
+      }
+      .site-header.is-open .site-header__logo img { width: 118px; }
+      .site-header.is-open .site-header__nav { display: flex; grid-column: 2; grid-row: 1; }
+      .site-header.is-open .site-header__nav-list { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+      .site-header.is-open .site-header__nav-list a { font-size: 1.55rem; }
+      .site-header.is-open .site-header__cta { display: inline-flex; grid-column: 2; grid-row: 2; justify-self: start; }
+      /* 項目をふわっと順番に表示 */
+      .site-header.is-open .site-header__nav-list li,
+      .site-header.is-open .site-header__cta { animation: spItemRise 0.4s ease both; }
+      .site-header.is-open .site-header__nav-list li:nth-child(1) { animation-delay: 0.08s; }
+      .site-header.is-open .site-header__nav-list li:nth-child(2) { animation-delay: 0.14s; }
+      .site-header.is-open .site-header__nav-list li:nth-child(3) { animation-delay: 0.20s; }
+      .site-header.is-open .site-header__nav-list li:nth-child(4) { animation-delay: 0.26s; }
+      .site-header.is-open .site-header__cta { animation-delay: 0.32s; }
+      .site-header.is-open .site-header__burger {
+        position: fixed;
+        top: 1.25rem;
+        right: 1.4rem;
+        transform: scale(1.3);
+        transform-origin: top right;
+      }
+    }
+    @media (max-width: 560px) {
+      .site-header__logo img { width: 60px; }
+      .site-header__logo { bottom: -18px; left: 1.25rem; }
+      .site-header__inner { padding-left: calc(1.25rem + 60px + 0.85rem); }
+    }
+
+    /* =========================================================
+       PART 2 — Hero（100vh：コラージュ背景 + イベントカード + 破れ目）
+       ========================================================= */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 560px;
+      overflow: visible;
+      background: #e9e1d0;
+    }
+    /* コラージュは clip したいので bg だけ overflow hidden */
+    .hero__clip {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /* 背景コラージュ */
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+    .hero__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 18%;
+      display: block;
+    }
+
+    /* 右側イベントカード（下げて縦に伸ばす） */
+    .hero__card {
+      position: absolute;
+      z-index: 2;
+      top: 40%;
+      right: 0;
+      bottom: 0;
+      width: min(440px, 46vw);
+      background-color: #F6EEE2;
+      /* 方眼ノート風の罫線（クリーム地の上に薄いグリッド） */
+      background-image:
+        linear-gradient(rgba(150, 120, 90, 0.13) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(150, 120, 90, 0.13) 1px, transparent 1px);
+      background-size: 22px 22px;
+      background-position: -1px -1px;
+      padding: 3rem 2.6rem 6rem;   /* 下に伸ばす（下端が紙の手前まで） */
+      box-shadow: -6px 8px 30px rgba(0,0,0,0.07);
+    }
+    .hero__card-sub {
+      margin: 0 0 0.15rem;
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 1.1rem;
+      color: #c0473a;
+      letter-spacing: 0.04em;
+    }
+    .hero__card-title {
+      margin: 0 0 0.7rem;
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 1.1;
+      color: #1a1a1a;
+      letter-spacing: 0.01em;
+    }
+    .hero__card-date {
+      margin: 0 0 1.3rem;
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      letter-spacing: 0.02em;
+    }
+    .hero__card-date .day {
+      font-size: 1rem;
+      font-weight: 700;
+      vertical-align: baseline;
+    }
+    .hero__card-desc {
+      margin: 0 0 1.6rem;
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 0.8rem;
+      line-height: 1.85;
+      color: #3a3a3a;
+      letter-spacing: 0.02em;
+    }
+    .hero__card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem 1.4rem;
+      background: #111;
+      color: #fff;
+      text-decoration: none;
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      border-radius: 3px;
+      transition: opacity 0.2s ease;
+    }
+    .hero__card-cta:hover { opacity: 0.85; }
+    .hero__card-cta .arrow {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.7);
+      font-size: 0.7rem;
+    }
+
+    /* 装飾テープ（破れ目に重なる位置に貼る） */
+    .hero__tape {
+      position: absolute;
+      z-index: 20;
+      bottom: 3%; left: -30px;
+      width: 130px;
+      transform: rotate(-9deg);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+    .hero__tape img { width: 100%; height: auto; display: block; }
+    /* PCではテープを大きく */
+    @media (min-width: 769px) {
+      .hero__tape { width: 180px; left: -40px; }
+    }
+
+    /* =========================================================
+       PART 3 — About（MCD MIXとは？）破れた上端で Hero と繋ぐ
+       ========================================================= */
+    .about {
+      position: relative;
+      z-index: 6;
+      /* 白背景はここに置かない（破れ紙の透明部分からコラージュを見せるため） */
+      margin-top: -16vw;          /* 破れ紙をコラージュに重ねる（カードのボタンに被らない量） */
+    }
+    /* 破れエッジ画像（torn-solid.png：上=透明→裂け目→白い本体で終わる） */
+    .about__torn {
+      position: relative;
+      z-index: 1;
+      line-height: 0;
+      margin-bottom: -1px;
+    }
+    .about__torn img {
+      width: 112%;
+      margin-left: -4%;
+      height: auto;
+      display: block;
+    }
+    /* 白い本体（torn-thin の白い下端に密着、白はCSSで伸ばす） */
+    .about__inner {
+      position: relative;
+      /* z-index を指定しない＝スタッキングコンテキストを作らない（中の文字を外に出せる） */
+      background: #ffffff;
+      margin-top: -1px;
+      padding: 0.5rem 2rem 6rem;
+    }
+    .about__container {
+      position: relative;
+      z-index: 5;            /* 文字をトレーシングペーパー(4)より手前へ。innerが文脈を作らないので有効 */
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .about__title {
+      position: relative;
+      z-index: 6;            /* transformでスタッキングコンテキスト化するため明示的に手前へ */
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      letter-spacing: 0.02em;
+      margin: 0 0 1.8rem;
+      /* 本文と同じ左位置から始め、左基点でほんの少し傾ける */
+      text-align: left;
+      transform: rotate(0.5deg);
+      transform-origin: left bottom;
+    }
+    .about__title-suffix {
+      font-size: 0.72em;   /* 「とは？」だけ少し小さく */
+    }
+    .about__body p {
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 0.92rem;
+      line-height: 2.1;
+      color: #2a2a2a;
+      letter-spacing: 0.02em;
+      margin: 0 0 1.4rem;
+    }
+    .about__more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-top: 1.5rem;
+      padding: 0.85rem 2rem;
+      border: 1px solid #1a1a1a;
+      border-radius: 999px;
+      background: #ffffff;
+      color: #1a1a1a;
+      text-decoration: none;
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    /* ボタンを右寄せにする（親をflex化） */
+    .about__more-wrap {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .about__more:hover { background: #1a1a1a; color: #fff; }
+    .about__more .arrow { font-size: 0.9rem; }
+
+    /* プチプチ素材：MCD MIXとは？ の右下に装飾（右端に詰める） */
+    .about__bubble {
+      position: absolute;
+      z-index: 2;            /* 下端の破れ紙(z-index 1)より手前に */
+      right: 0;
+      bottom: -42%;
+      width: 220px;
+      height: auto;
+      opacity: 0.7;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+      filter: drop-shadow(4px 6px 8px rgba(0,0,0,0.28));
+    }
+
+    /* トレーシングペーパー（Hero〜About の境目に半透明で重ねる） */
+    .about__tracing {
+      position: absolute;
+      z-index: 4;
+      top: 5vw;
+      left: -3%;
+      width: 70%;
+      height: auto;
+      transform: rotate(-3deg);
+      pointer-events: none;
+      mix-blend-mode: normal;
+      opacity: 0.85;   /* 少しだけ薄く */
+      filter: drop-shadow(3px 5px 7px rgba(0,0,0,0.18));   /* 軽いドロップシャドウ */
+    }
+
+    /* About 下端の破れ目（白い本体 → 破れ → 下の Event クリーム地） */
+    .about__torn-bottom {
+      position: relative;
+      z-index: 1;
+      line-height: 0;
+      margin-top: -1px;
+      transform: scaleY(-1);   /* 上下反転で「白が上・破れが下」に */
+    }
+    .about__torn-bottom img {
+      width: 112%;
+      margin-left: -4%;
+      height: auto;
+      display: block;
+    }
+
+    /* =========================================================
+       PART 4 — Event スライダー（カンプ準拠：帯タイトル＋画像オーバーレイ）
+       ========================================================= */
+    .event {
+      position: relative;
+      z-index: 5;
+      background: transparent;   /* body の連続グリッドを透かす */
+      margin-top: -1px;
+      padding: 1rem 0 5rem;
+    }
+    .event__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .event__head { margin-bottom: 2rem; }
+    .event__title {
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0;
+      letter-spacing: 0.04em;
+    }
+    .event__slider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .event__viewport {
+      overflow: hidden;
+      flex: 1;
+    }
+    .event__track {
+      display: flex;
+      gap: 2.2rem;
+      transition: transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+    }
+    .event__card {
+      flex: 0 0 auto;
+      min-width: 0;
+    }
+    /* .reveal の transition に上書きされないよう特異度を上げ、width(拡大) も含める */
+    article.event__card {
+      transition: width 0.5s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.7s ease, transform 0.7s ease;
+    }
+    /* タイトル帯（画像の上に配置・被らない。グリッド無しのベタ地） */
+    .event__card-title {
+      margin: 0 2.4rem 0 0;   /* 右端を画像より内側にして少しズレを作る */
+      background: #F6EEE2;
+      border: 1.5px solid #3a2a1a;
+      padding: 0.6rem 0.9rem;
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    /* 画像（グレーのプレースホルダー） */
+    .event__figure {
+      position: relative;
+      aspect-ratio: 16 / 11;
+      background: #c9c9c9;
+      margin-top: -1.5px;   /* タイトル帯の下線と画像の上線を重ねて二重線を防ぐ */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6f6f6f;
+      font-size: 0.95rem;
+      letter-spacing: 0.06em;
+      border: 1.5px solid #3a2a1a;
+      overflow: hidden;   /* ホバー時のズームを枠内にクリップ */
+    }
+    .event__figure img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
+    }
+    /* サムネイル全体ホバーで画像を少しアップ */
+    .event__figure:hover img { transform: scale(1.06); }
+    /* 年・地名（画像の左下に重なる） */
+    .event__card-meta {
+      position: absolute;
+      left: 0.7rem;
+      bottom: 0.6rem;
+      margin: 0;
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 0.95rem;
+      color: #1a1a1a;
+      letter-spacing: 0.02em;
+    }
+    /* リンク／ホバー領域をサムネイル全体に拡張（透明オーバーレイ） */
+    .event__card-link {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      font-size: 0;          /* テキスト「↗」を隠す（矢印は ::after で描画） */
+      text-decoration: none;
+    }
+    /* 右下の黒い矢印ボタン（見た目は従来どおり） */
+    .event__card-link::after {
+      content: "↗";
+      position: absolute;
+      right: 0; bottom: 0;
+      width: 54px; height: 54px;
+      background: #111;
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      transition: background 0.2s ease;
+    }
+    .event__card-link:hover::after { background: #c0473a; }
+    /* 左右の三角矢印（スライダー外側・CSSで描く塗り三角） */
+    .event__arrow {
+      flex: 0 0 auto;
+      width: 40px; height: 40px;
+      border: none;
+      background: transparent;
+      padding: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      font-size: 0;   /* グリフ文字を消してCSS三角に統一 */
+    }
+    .event__arrow::before {
+      content: "";
+      display: block;
+      width: 0; height: 0;
+      border-top: 11px solid transparent;
+      border-bottom: 11px solid transparent;
+    }
+    .event__arrow--prev::before { border-right: 16px solid #1a1a1a; }
+    .event__arrow--next::before { border-left: 16px solid #1a1a1a; }
+    .event__arrow:hover { transform: scale(1.15); }
+    .event__arrow:disabled { opacity: 0.25; cursor: default; }
+    .event__arrow:disabled:hover { transform: none; }
+
+    /* PC：左に来たカード（アクティブ）を大きく、他を小さく */
+    @media (min-width: 769px) {
+      .event__card { width: 38%; }
+      .event__card.is-active { width: 58%; }
+    }
+
+    @media (max-width: 768px) {
+      .event__card { width: 100%; }  /* SPは1枚見せ */
+      .about__bubble { width: 170px; right: 0; bottom: 2%; }
+    }
+
+    @media (max-width: 768px) {
+      .about { margin-top: -14vw; }
+      .about__inner { padding: 0.5rem 1.4rem 4rem; }
+      .about__title { font-size: 1.6rem; }
+      .about__body p { font-size: 0.88rem; line-height: 2; }
+    }
+
+    @media (max-width: 768px) {
+      .hero__card {
+        /* 位置は維持（中央移動しない）。右寄せのまま幅だけ調整 */
+        right: 0;
+        width: min(440px, 70vw);
+        padding: 2rem 1.8rem 3rem;
+      }
+      .hero__card-title { font-size: 1.7rem; }
+      .hero__card-date { font-size: 1.5rem; }
+    }
+
+    /* =========================================================
+       PART 5 — News（ルーズリーフ紙＋ピンクの紙）
+       ========================================================= */
+    .news {
+      position: relative;
+      z-index: 5;
+      background: transparent;     /* body の連続グリッドを透かす */
+      padding: 3rem 0 6rem;
+      overflow: clip;              /* 全幅・斜めのピンク紙が下のFooterへ突き抜けないよう抑止 */
+    }
+    .news__inner {
+      position: relative;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    /* ピンクの紙（全幅セクション基準で右端に配置・ルーズリーフ前面に少し被せる） */
+    .news__pink {
+      position: absolute;
+      right: -4rem;
+      bottom: 0;
+      top: auto;
+      height: 150%;
+      width: auto;
+      transform: rotate(6deg);
+      transform-origin: bottom right;
+      z-index: 3;
+      pointer-events: none;
+    }
+    /* ルーズリーフ紙のパネル（横いっぱい＝フルブリード＋少し傾ける） */
+    .news__paper {
+      position: relative;
+      z-index: 2;
+      width: 106vw;
+      margin-left: calc(50% - 53vw);
+      transform: rotate(-2deg);
+    }
+    .news__paper-bg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    /* 紙の上に乗せる中身（紙の縦いっぱいに広げる） */
+    .news__content {
+      position: absolute;
+      inset: 0;
+      padding: 9% 9% 30% 17%;
+      display: flex;
+      flex-direction: column;
+    }
+    .news__title {
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0 0 0.5rem;
+      letter-spacing: 0.04em;
+    }
+    /* リストを縦に均等配分して紙全体を使う */
+    .news__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+    .news__item {
+    }
+    /* 各項目をリンクにできるように（年＋本文をアンカーで包む） */
+    .news__item-link {
+      display: flex;
+      align-items: baseline;
+      gap: 1.6rem;
+      padding: 0.7rem 0;
+      text-decoration: none;
+      color: inherit;
+      transition: opacity 0.2s ease;
+    }
+    .news__item-link:hover { opacity: 0.55; }
+    .news__year {
+      flex: 0 0 auto;
+      width: 8em;
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 0.95rem;
+      color: #1a1a1a;
+      letter-spacing: 0.02em;
+    }
+    .news__text {
+      margin: 0;
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 0.85rem;
+      color: #2a2a2a;
+      line-height: 1.7;
+    }
+    .news__more-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+    .news__more {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.7rem 2rem;
+      border: 1px solid #1a1a1a;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.6);
+      color: #1a1a1a;
+      text-decoration: none;
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .news__more:hover { background: #1a1a1a; color: #fff; }
+    .news__more-arrow {
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+
+    /* 文字が小さくなりすぎる狭い画面では、紙を背景にせず通常レイアウトに切替 */
+    @media (max-width: 700px) {
+      .news__paper-bg { min-height: 660px; object-fit: cover; }
+      .news__content { padding: 14% 8% 36% 13%; }
+      .news__title { font-size: 1.7rem; margin-bottom: 1rem; }
+      /* 縦に間延びさせず上に寄せる */
+      .news__list { flex: 0 0 auto; justify-content: flex-start; gap: 1.3rem; }
+      /* 日付の下に本文を改行（縦積み） */
+      .news__item-link { flex-direction: column; align-items: flex-start; gap: 0.15rem; padding: 0.5rem 0; }
+      .news__year { width: auto; }
+      .news__more-wrap { margin-top: 1.4rem; }
+      .news__pink { height: 130%; right: -2rem; bottom: 0; top: auto; }
+    }
+
+    /* =========================================================
+       PART 6 — Footer（ルーズリーフ台紙＋テープ＋nav＋Contact/Instagram）
+       ========================================================= */
+    .site-footer {
+      position: relative;
+      z-index: 5;
+      background: transparent;     /* body の連続グリッドを透かす */
+      padding: 3rem 0 4rem;
+    }
+    /* 全体は左寄せ／2カラム（左：台紙カード ／ 右：Contact・Instagram・ロゴ） */
+    .site-footer__inner {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 5%;
+    }
+    /* ── 左：シンプル白紙を台紙にしたカード ── */
+    .site-footer__card {
+      position: relative;
+      flex: 0 1 620px;
+      max-width: 620px;
+      min-width: 0;
+    }
+    .site-footer__paper {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    /* 台紙の左上に斜めに貼った半透明テープ */
+    .site-footer__tape {
+      position: absolute;
+      z-index: 3;
+      top: -58px;
+      left: 50%;
+      width: 104px;
+      transform: translateX(-50%) rotate(-32deg);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .site-footer__tape img { width: 100%; height: auto; display: block; }
+    /* 台紙の上に乗る中身：左に縦長イラスト＋右にナビ */
+    .site-footer__content {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 5%;
+      padding: 7% 9%;
+    }
+    /* 縦長の鉛筆線画（横幅は控えめ・縦に余裕） */
+    .site-footer__illust {
+      flex: 0 0 auto;
+      width: 22%;
+      max-width: 130px;
+      height: auto;
+      display: block;
+      align-self: center;
+    }
+    .site-footer__nav-list {
+      list-style: none;
+      margin: 0; padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.6rem;
+    }
+    .site-footer__nav-list a {
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 1.1rem;
+      color: #1a1a1a;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      position: relative;
+    }
+    .site-footer__nav-list a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: -3px;
+      width: 100%; height: 1px;
+      background: #1a1a1a;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.28s ease;
+    }
+    .site-footer__nav-list a:hover::after { transform: scaleX(1); }
+    /* コピーライト（台紙の下端・小さめ1行） */
+    .site-footer__copy {
+      position: absolute;
+      z-index: 2;
+      left: 31%;
+      right: 9%;
+      bottom: 11%;
+      margin: 0;
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 0.66rem;
+      letter-spacing: 0.04em;
+      color: #5a4a36;
+      white-space: nowrap;
+    }
+    /* ── 右：Contact / Instagram（破線で上下を囲む）＋ ロゴ ── */
+    .site-footer__right {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.4rem;
+    }
+    .site-footer__links {
+      display: flex;
+      flex-direction: column;
+      width: 230px;
+      border-top: 2px dashed #1a1a1a;
+    }
+    .site-footer__link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      padding: 0.5rem 0;
+      border-bottom: 2px dashed #1a1a1a;
+      transition: opacity 0.2s ease;
+    }
+    .site-footer__link:hover { opacity: 0.6; }
+    .site-footer__link .ext { font-size: 0.7em; }
+    /* リンク頭のアイコン（メール / Instagram） */
+    .site-footer__link-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .site-footer__icon {
+      width: 1.1em;
+      height: 1.1em;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+      flex-shrink: 0;
+    }
+    /* MCD MIX 赤スタンプロゴ */
+    .site-footer__logo img {
+      width: 96px; height: auto; display: block;
+    }
+
+    @media (max-width: 760px) {
+      /* カードの装飾（紙・テープ・イラスト・footer nav）は隠し、著作権表記だけ残す */
+      .site-footer__paper, .site-footer__tape, .site-footer__content { display: none; }
+      .site-footer__card { flex: none; background: none; min-height: 0; }
+      .site-footer__copy {
+        position: static;
+        left: auto; right: auto; bottom: auto;
+        margin: 0;
+        text-align: center;
+        white-space: normal;
+        font-size: 0.62rem;
+        line-height: 1.6;
+      }
+      .site-footer__inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.8rem;
+      }
+      /* 左ロゴ・右リンクの一行 */
+      .site-footer__right {
+        order: -1;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        gap: 1.2rem;
+      }
+      .site-footer__logo { order: -1; }
+      .site-footer__logo img { width: 84px; }
+      .site-footer__links { width: auto; min-width: 178px; flex: 0 1 auto; }
+      .site-footer__link { font-size: 1.2rem; }
+    }
+
+    /* =========================================================
+       スクロール時のふわっと表示（PC のみ。SPは即表示）
+       ========================================================= */
+    @media (min-width: 769px) {
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+        will-change: opacity, transform;
+      }
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    /* =========================================================
+       Event 一覧ページ（共通nav/footer・グリッド背景・カードはスライダー流用）
+       ========================================================= */
+    .page-head {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 1.5rem;
+    }
+    .page-title {
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin: 0 0 0.5rem;
+      color: #1a1a1a;
+    }
+    .page-title .dot { color: #1a1a1a; }
+    .page-sub {
+      margin: 0;
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 0.9rem;
+      color: #5a4a36;
+      letter-spacing: 0.04em;
+      line-height: 1.8;
+    }
+    .event-list-section {
+      position: relative;
+      z-index: 5;
+      padding: 1.5rem 0 6rem;
+    }
+    .event-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem 2.2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    /* スライダーの幅指定(38%/58%)を打ち消し、グリッドのセル幅いっぱいに */
+    .event-list .event__card { width: 100%; }
+    @media (max-width: 900px) {
+      .event-list { grid-template-columns: repeat(2, 1fr); gap: 2.4rem 1.8rem; }
+      .page-head { padding: 3rem 1.5rem 1.2rem; }
+    }
+    @media (max-width: 560px) {
+      .event-list { grid-template-columns: 1fr; gap: 2.2rem; }
+      .page-title { font-size: 2.1rem; }
+    }
+
+    .breadcrumb {
+      max-width: 1100px; margin: 0 auto; padding: 0.7rem 2rem 0.2rem;
+      display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem;
+      font-size: 0.78rem; color: #6a5a45; letter-spacing: 0.04em;
+    }
+    .breadcrumb a { color: inherit; text-decoration: none; }
+    .breadcrumb a:hover { opacity: 0.6; }
+    .breadcrumb__sep { color: #b0a48d; flex: 0 0 auto; }
+  </style>
+</head>
+<body>
+
+  <!-- PART 1: Header -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="site-header__logo" aria-label="MCD MIX トップ">
+        <img src="mcd-mix-logo.webp" alt="MCD MIX" width="80" height="83">
+      </a>
+      <nav class="site-header__nav" id="site-nav" aria-label="メインナビゲーション">
+        <ul class="site-header__nav-list">
+          <li><a href="index.html">Top</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="events.html">Event</a></li>
+          <li><a href="news.html">News</a></li>
+        </ul>
+      </nav>
+      <a href="event-detail.html#apply" class="site-header__cta">出展のお申し込みはこちら</a>
+      <button class="site-header__burger" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <p class="breadcrumb"><a href="index.html">TOP</a><span class="breadcrumb__sep">&gt;</span>Event</p>
+
+  <!-- メイン：Event 一覧 -->
+  <main>
+    <section class="page-head">
+      <h1 class="page-title reveal">Event<span class="dot">.</span></h1>
+      <p class="page-sub reveal">MCD MIX 開催のイベントの一覧です。</p>
+    </section>
+
+    <section class="event-list-section">
+      <div class="event-list">
+            <article class="event__card reveal">
+              <h3 class="event__card-title">【終了】ながくてアートブック</h3>
+              <div class="event__figure">
+                <img src="asset12.webp" alt="【終了】ながくてアートブック">
+                <p class="event__card-meta">2025.10.03 - 04</p>
+                <a class="event__card-link" href="event-detail.html" aria-label="詳細を見る">↗</a>
+              </div>
+            </article>
+            <article class="event__card reveal">
+              <h3 class="event__card-title">タイトルが入ります</h3>
+              <div class="event__figure">
+                <span>画像が入ります</span>
+                <p class="event__card-meta">2026 ｜ Nagakute</p>
+                <a class="event__card-link" href="event-detail.html" aria-label="詳細を見る">↗</a>
+              </div>
+            </article>
+            <article class="event__card reveal">
+              <h3 class="event__card-title">タイトルが入ります</h3>
+              <div class="event__figure">
+                <span>画像が入ります</span>
+                <p class="event__card-meta">2026 ｜ Nagakute</p>
+                <a class="event__card-link" href="event-detail.html" aria-label="詳細を見る">↗</a>
+              </div>
+            </article>
+            <article class="event__card reveal">
+              <h3 class="event__card-title">タイトルが入ります</h3>
+              <div class="event__figure">
+                <span>画像が入ります</span>
+                <p class="event__card-meta">2026 ｜ Nagakute</p>
+                <a class="event__card-link" href="event-detail.html" aria-label="詳細を見る">↗</a>
+              </div>
+            </article>
+            <article class="event__card reveal">
+              <h3 class="event__card-title">タイトルが入ります</h3>
+              <div class="event__figure">
+                <span>画像が入ります</span>
+                <p class="event__card-meta">2026 ｜ Nagakute</p>
+                <a class="event__card-link" href="event-detail.html" aria-label="詳細を見る">↗</a>
+              </div>
+            </article>
+            <article class="event__card reveal">
+              <h3 class="event__card-title">タイトルが入ります</h3>
+              <div class="event__figure">
+                <span>画像が入ります</span>
+                <p class="event__card-meta">2026 ｜ Nagakute</p>
+                <a class="event__card-link" href="event-detail.html" aria-label="詳細を見る">↗</a>
+              </div>
+            </article>
+            <article class="event__card reveal">
+              <h3 class="event__card-title">タイトルが入ります</h3>
+              <div class="event__figure">
+                <span>画像が入ります</span>
+                <p class="event__card-meta">2026 ｜ Nagakute</p>
+                <a class="event__card-link" href="event-detail.html" aria-label="詳細を見る">↗</a>
+              </div>
+            </article>
+            <article class="event__card reveal">
+              <h3 class="event__card-title">タイトルが入ります</h3>
+              <div class="event__figure">
+                <span>画像が入ります</span>
+                <p class="event__card-meta">2026 ｜ Nagakute</p>
+                <a class="event__card-link" href="event-detail.html" aria-label="詳細を見る">↗</a>
+              </div>
+            </article>
+            <article class="event__card reveal">
+              <h3 class="event__card-title">タイトルが入ります</h3>
+              <div class="event__figure">
+                <span>画像が入ります</span>
+                <p class="event__card-meta">2026 ｜ Nagakute</p>
+                <a class="event__card-link" href="event-detail.html" aria-label="詳細を見る">↗</a>
+              </div>
+            </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <!-- 左：白紙の台紙カード -->
+      <div class="site-footer__card reveal">
+        <img class="site-footer__paper" src="footer-paper.webp" alt="">
+        <div class="site-footer__tape" aria-hidden="true">
+          <img src="tape.webp" alt="">
+        </div>
+        <div class="site-footer__content">
+          <img class="site-footer__illust" src="asset11.webp" alt="" aria-hidden="true">
+          <nav aria-label="フッターナビゲーション">
+            <ul class="site-footer__nav-list">
+              <li><a href="index.html">Top</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="events.html">Event</a></li>
+              <li><a href="news.html">News</a></li>
+            </ul>
+          </nav>
+        </div>
+        <p class="site-footer__copy">※本サイトに掲載の作品・画像に関して無断転載等の一切を禁止しております</p>
+      </div>
+
+      <!-- 右：Contact / Instagram ＋ ロゴ -->
+      <div class="site-footer__right reveal">
+        <div class="site-footer__links">
+          <a class="site-footer__link" href="#">
+            <span class="site-footer__link-label"><img class="site-footer__icon" src="mail.svg" alt="">Contact</span>
+            <span class="ext">↗</span>
+          </a>
+          <a class="site-footer__link" href="#">
+            <span class="site-footer__link-label"><img class="site-footer__icon" src="instagram.svg" alt="">Instagram</span>
+            <span class="ext">↗</span>
+          </a>
+        </div>
+        <div class="site-footer__logo">
+          <img src="mcd-mix-logo.webp" alt="MCD MIX">
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // スクロールで .reveal をふわっと表示（PCのみCSSで効く。SPは常に表示）
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window) || !els.length) {
+        els.forEach(function (el) { el.classList.add('is-visible'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var el = entry.target;
+            // 軽いスタッガー（兄弟の順番に応じて遅延）
+            var siblings = Array.prototype.slice.call(el.parentElement.children);
+            var idx = siblings.indexOf(el);
+            el.style.transitionDelay = Math.min(idx, 5) * 0.08 + 's';
+            el.classList.add('is-visible');
+            io.unobserve(el);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+
+    // Event スライダー（PC：左に来たカードを大きく／SP：1枚送り）
+    (function () {
+      var viewport = document.querySelector('.event__viewport');
+      var track = document.querySelector('.event__track');
+      var prev = document.querySelector('.event__arrow--prev');
+      var next = document.querySelector('.event__arrow--next');
+      if (!viewport || !track || !prev || !next) return;
+      var cards = Array.prototype.slice.call(track.children);
+      var index = 0;
+
+      function isPC() { return window.innerWidth > 768; }
+      function maxIndex() {
+        // PCは「ビッグ＋次の小カード」で常に埋まるよう、最後の小カードが残る位置まで
+        return isPC() ? Math.max(0, cards.length - 2) : Math.max(0, cards.length - 1);
+      }
+
+      function update() {
+        if (index > maxIndex()) index = maxIndex();
+        if (index < 0) index = 0;
+        var style = getComputedStyle(track);
+        var gap = parseFloat(style.columnGap || style.gap || '0') || 0;
+        if (isPC()) {
+          cards.forEach(function (c, i) { c.classList.toggle('is-active', i === index); });
+          // width はトランジション中のため offsetLeft は使わず、最終レイアウト基準で算出。
+          // アクティブの前は全て小カード幅なので left = index * (小カード幅 + gap)。
+          var widths = cards.map(function (c) { return c.getBoundingClientRect().width; });
+          var smallW = Math.min.apply(null, widths);   // 静止中の小カード幅
+          track.style.transform = 'translateX(' + (-(index * (smallW + gap))) + 'px)';
+        } else {
+          cards.forEach(function (c) { c.classList.remove('is-active'); });
+          var step = cards[0].getBoundingClientRect().width + gap;
+          track.style.transform = 'translateX(' + (-step * index) + 'px)';
+        }
+        prev.disabled = index <= 0;
+        next.disabled = index >= maxIndex();
+      }
+
+      prev.addEventListener('click', function () { if (index > 0) { index--; update(); } });
+      next.addEventListener('click', function () { if (index < maxIndex()) { index++; update(); } });
+      window.addEventListener('resize', update);
+      update();
+      // 初期レイアウト確定後に再計算（フォント/画像読み込み後のズレ防止）
+      requestAnimationFrame(update);
+      window.addEventListener('load', update);
+    })();
+    // ハンバーガーメニュー（SP）
+    (function () {
+      var header = document.querySelector('.site-header');
+      var burger = document.querySelector('.site-header__burger');
+      if (!header || !burger) return;
+      burger.addEventListener('click', function () {
+        var open = header.classList.toggle('is-open');
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        burger.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+      });
+      // ナビのリンクをタップしたら閉じる
+      header.querySelectorAll('.site-header__nav-list a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          header.classList.remove('is-open');
+          burger.setAttribute('aria-expanded', 'false');
+          burger.setAttribute('aria-label', 'メニューを開く');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
